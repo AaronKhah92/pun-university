@@ -1,0 +1,107 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+html,
+body {
+    background-color: #ffff;
+    color: #636b6f;
+    font-family: "Nunito", sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.content {
+    padding-top: 16%;
+    text-align: center;
+    .lead {
+        color: white;
+    }
+}
+
+.title {
+    font-size: 84px;
+    color: white;
+}
+
+.links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+.jumbotron {
+    background-image: url("https://cdn.pixabay.com/photo/2015/04/20/13/17/work-731198_1280.jpg") !important;
+    background-size: cover;
+    height: 20%;
+    background-position: 50% 50%;
+}
+
+.home-card {
+    width: 50%;
+}
+
+.pun-menu {
+    margin-top: 2%;
+}
+
+@include media-breakpoint-up(md) {
+    .content {
+        padding-top: 12%;
+    }
+
+    .home-card {
+        width: 25%;
+    }
+    .pun-menu {
+        margin-top: 2.5%;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .content {
+        padding-top: 8%;
+    }
+
+    .home-card {
+        width: 25%;
+    }
+
+    .pun-menu {
+        margin-top: 2%;
+    }
+}
