@@ -20,10 +20,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/test', 'TestController@index');
-
-Route::get('/services', 'TestController@services');
-
-Route::get('/student', 'StudentController@index');
-Route::post('/student', 'StudentController@store');
