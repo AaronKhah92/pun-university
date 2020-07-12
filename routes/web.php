@@ -25,3 +25,10 @@ Route::get('/studentclasses/create', 'StudentclassController@create');
 
 Route::post('/studentclasses', 'StudentclassController@store');
 Route::get('/studentclasses/{studentclass}', 'StudentclassController@show');
+
+
+
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('/users', 'UsersController');
+});
