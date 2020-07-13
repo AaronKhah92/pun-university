@@ -25,6 +25,7 @@ Route::get('/studentclasses/create', 'StudentclassController@create');
 
 Route::post('/studentclasses', 'StudentclassController@store');
 Route::get('/studentclasses/{studentclass}', 'StudentclassController@show');
+Route::get('/students', 'StudentController@index');
 
 
 
