@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Student;
 use App\Role;
 use App\User;
+use App\Studentclass;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -16,7 +17,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+
+        $students = Role::where('name', 'student')->first()->users;
+
+        return view('student.index', compact('students'));
     }
 
     /**

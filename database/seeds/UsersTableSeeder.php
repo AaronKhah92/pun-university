@@ -26,13 +26,34 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('admin')
         ]);
 
-        $student = User::create([
+        $aaron = User::create([
             'name' => 'Aaron Reacts',
             'email' => 'aaron@reacts.se',
             'password' => Hash::make('react')
         ]);
 
+        $pk = User::create([
+            'name' => 'Per Kristian "The PK" Svanberg',
+            'email' => 'pk@bootstrap.se',
+            'password' => Hash::make('bootstrap')
+        ]);
+
+        $fabian = User::create([
+            'name' => 'Fabian "the chilli" Olsson',
+            'email' => 'fabia@fiat.se',
+            'password' => Hash::make('fiatfabia')
+        ]);
+
+        $nittarn = User::create([
+            'name' => 'Joakim Malmberg',
+            'email' => 'nittarn@nittax.se',
+            'password' => Hash::make('nittarn')
+        ]);
+
         $admin->roles()->attach($adminRole);
-        $student->roles()->attach($studentRole);
+        $aaron->roles()->attach($studentRole);
+        $pk->roles()->attach($studentRole);
+        $fabian->roles()->attach($studentRole);
+        $nittarn->roles()->attach($studentRole);
     }
 }

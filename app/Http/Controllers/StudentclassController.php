@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Studentclass;
+use App\User;
+use App\Student;
 use Illuminate\Http\Request;
 
 class StudentclassController extends Controller
@@ -39,9 +41,10 @@ class StudentclassController extends Controller
             'name' => 'required'
         ]);
 
-        $data['student_id'] = 1;
+        $data['student_id'] = auth()->user()->id;
 
         $studentclass = \App\Studentclass::create($data);
+
 
         return  redirect('/studentclasses/' . $studentclass->id);
     }
