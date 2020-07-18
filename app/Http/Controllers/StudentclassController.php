@@ -16,7 +16,8 @@ class StudentclassController extends Controller
      */
     public function index()
     {
-        //
+        $studentclasses = auth()->user()->studentclasses()->get();
+        return view('studentclass.index', compact('studentclasses'));
     }
 
     /**
@@ -41,7 +42,7 @@ class StudentclassController extends Controller
             'name' => 'required'
         ]);
 
-        $data['student_id'] = auth()->user()->id;
+        $data['user_id'] = auth()->user()->id;
 
         $studentclass = \App\Studentclass::create($data);
 
