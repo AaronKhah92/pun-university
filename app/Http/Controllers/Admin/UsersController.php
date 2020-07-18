@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use App\Studentclass;
+use Gate;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -21,8 +23,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-
-        return view('admin.users.index')->with('users', $users);
+        $students = Role::where('name', 'student')->first()->users;
+        $studentclasses = Studentclass::all();
+        return view('admin.users.index', compact('users', 'students', 'studentclasses'));
     }
 
     /**
@@ -64,11 +67,16 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        if (Gate::denies('edit-users')) {
+            return redirect(route('admin.users.index'));
+        }
         $roles = Role::all();
+        $studentclasses = Studentclass::all();
 
         return view('admin.users.edit')->with([
             'user' => $user,
             'roles' => $roles,
+            'studentclasses' => $studentclasses
         ]);
     }
 
@@ -82,6 +90,7 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         $user->roles()->sync($request->roles);
+        $user->studentclasses()->sync($request->studentclasses);
 
         return redirect()->route('admin.users.index');
     }
@@ -94,6 +103,9 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        if (Gate::denies('delete-users')) {
+            return redirect(route('admin.users.index'));
+        }
         $user->roles()->detach();
         $user->delete();
 
