@@ -21,15 +21,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/studentclasses', 'StudentclassController@index');
 Route::get('/studentclasses/create', 'StudentclassController@create');
-
 Route::post('/studentclasses', 'StudentclassController@store');
 Route::get('/studentclasses/{studentclass}', 'StudentclassController@show');
-Route::get('/students', 'StudentController@index');
 
 
-
-
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function () {
     Route::resource('/users', 'UsersController');
 });

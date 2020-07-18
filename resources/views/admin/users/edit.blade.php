@@ -18,6 +18,13 @@
                                 <label>{{ $role->name }}</label>
                             </div>
                         @endforeach
+
+                        @foreach ($studentclasses as $studentclass)
+                        <div class="form-check">
+                            <input type="checkbox" name="studentclasses[]" value="{{ $studentclass->id }}">
+                            <label>{{ $studentclass->name }}</label>
+                        </div>
+                        @endforeach
                             <button type="submit" class="btn btn-primary">
                                 Uppdatera
                             </button>

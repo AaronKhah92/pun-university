@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
+use App\Studentclass;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
         DB::table('role_user')->truncate();
+        DB::table('studentclass_user')->truncate();
 
         $adminRole = Role::where('name', 'admin')->first();
         $studentRole = Role::where('name', 'student')->first();
