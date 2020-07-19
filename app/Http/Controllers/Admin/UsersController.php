@@ -8,6 +8,8 @@ use App\Role;
 use App\Studentclass;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -33,8 +35,26 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
+
+        return view('admin.users.create', compact('user'));
+    }
+
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
     }
 
     /**
@@ -45,7 +65,19 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+        ]);
+
+
+
+        $role = Role::select('id')->where('name', 'student')->first();
+
+        $user->roles()->attach($role);
+
+        return  redirect('admin/users/' . $user->id);
     }
 
     /**
@@ -56,7 +88,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -92,6 +124,11 @@ class UsersController extends Controller
         $user->roles()->sync($request->roles);
         $user->studentclasses()->sync($request->studentclasses);
 
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
+
         return redirect()->route('admin.users.index');
     }
 
@@ -107,6 +144,7 @@ class UsersController extends Controller
             return redirect(route('admin.users.index'));
         }
         $user->roles()->detach();
+        $user->studentclasses()->detach();
         $user->delete();
 
         return redirect()->route('admin.users.index');

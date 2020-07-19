@@ -18,7 +18,8 @@
                 <div class="card-body">
                     @can('manage-users')
                     <a href="/studentclasses/create" class="btn btn-dark">Skapa en klass</a>
-                    <a href="/students/create" class="btn btn-dark">Lägg till en student</a>
+                    <a href="admin/users/create" class="btn btn-dark">Lägg till en student</a>
+                    <a href="admin/users" class="btn btn-dark">Hantera Användare</a>
                     @endcan
 
                     @can('view-only')
