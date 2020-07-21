@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Studentclass;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $studentclasses = Studentclass::all();
-
-        return view('home', compact('studentclasses'));
+        $user = auth()->user();
+        return view('home', compact('studentclasses', 'user'));
     }
 }

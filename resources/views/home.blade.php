@@ -7,11 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     @can('manage-users')
-                    Redigera Användare
+               Välkommen till Adminitrationspanelen {{ $user->name }}
                     @endcan
 
                     @can('view-only')
-                    Mina sidor
+                    Mina sidor för {{ $user->name }}
                     @endcan
                 </div>
 
