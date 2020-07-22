@@ -45,26 +45,28 @@
                               </tr>
                             @endforeach
 
-                            <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($students as $student)
 
-                                    <tr>
-                                        <th scope="row">{{ $student->id }}</th>
-                                        <td> {{ $student->name }}</td>
-                                        <td>{{ $student->email }}</td>
-                                      </tr>
-                                    @endforeach
+                        </tbody>
+                      </table>
 
-                                </tbody>
-                              </table>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($students as $student)
+
+                            <tr>
+                                <th scope="row">{{ $student->id }}</th>
+                                <td> {{ $student->name }}</td>
+                                <td>{{ $student->email }}</td>
+                              </tr>
+                            @endforeach
+
                         </tbody>
                       </table>
                 </div>

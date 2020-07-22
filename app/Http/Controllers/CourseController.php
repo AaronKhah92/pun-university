@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use Gate;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -12,9 +13,17 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $courses = Course::all();
+        return view('course.index', compact('courses'));
     }
 
     /**
@@ -24,7 +33,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('course.create');
     }
 
     /**
@@ -35,7 +44,16 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'name' => 'required|min:4',
+            'description' => 'required'
+        ]);
+
+
+        $course = \App\Course::create($data);
+
+
+        return  redirect('/courses/' . $course->id);
     }
 
     /**
@@ -46,7 +64,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return view('course.show', compact('course'));
     }
 
     /**
@@ -57,7 +75,11 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        if (Gate::denies('editing-rights')) {
+            return redirect(route('course.index'));
+        }
+
+        return view('course.edit', compact('course'));
     }
 
     /**
@@ -69,7 +91,12 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course->name = $request->name;
+        $course->description = $request->description;
+
+        $course->save();
+
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -80,6 +107,12 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        if (Gate::denies('deleting-rights')) {
+            return redirect(route('courses.index'));
+        }
+
+        $course->delete();
+
+        return redirect()->route('courses.index');
     }
 }

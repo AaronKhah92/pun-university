@@ -50,6 +50,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Studentclass');
     }
 
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course');
+    }
+
+    public function grades()
+    {
+        return $this->hasManyThrough('App\Grade', 'App\Course');
+    }
+
 
     public function hasRole($role)
     {

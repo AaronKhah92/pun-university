@@ -99,7 +99,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        if (Gate::denies('edit-users')) {
+        if (Gate::denies('editing-rights')) {
             return redirect(route('admin.users.index'));
         }
         $roles = Role::all();

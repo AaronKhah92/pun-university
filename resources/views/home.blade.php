@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     @can('manage-users')
-               Välkommen till Adminitrationspanelen {{ $user->name }}
+                        Välkommen till Adminitrationspanelen {{ $user->name }}
                     @endcan
 
                     @can('view-only')
@@ -18,6 +18,8 @@
                 <div class="card-body">
                     @can('manage-users')
                     <a href="/studentclasses/create" class="btn btn-dark">Skapa en klass</a>
+                    <a href="/courses/create" class="btn btn-dark">Skapa en kurs</a>
+                    <a href="/courses" class="btn btn-dark">Hantera Kurser</a>
                     <a href="admin/users/create" class="btn btn-dark">Lägg till en student</a>
                     <a href="admin/users" class="btn btn-dark">Hantera Användare</a>
                     @endcan
