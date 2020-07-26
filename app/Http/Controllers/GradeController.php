@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Grade;
+use Gate;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -18,7 +19,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-        //
+        $grades = Grade::all();
+        return view('grade.index', compact('grades'));
     }
 
     /**
@@ -28,7 +30,7 @@ class GradeController extends Controller
      */
     public function create()
     {
-        //
+        return view('grade.create');
     }
 
     /**
@@ -39,7 +41,15 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'name' => 'required',
+        ]);
+
+
+        $grade = \App\Grade::create($data);
+
+
+        return  redirect('/grades/' . $grade->id);
     }
 
     /**
@@ -50,7 +60,7 @@ class GradeController extends Controller
      */
     public function show(Grade $grade)
     {
-        //
+        return view('grade.show', compact('grade'));
     }
 
     /**
@@ -61,7 +71,11 @@ class GradeController extends Controller
      */
     public function edit(Grade $grade)
     {
-        //
+        if (Gate::denies('editing-rights')) {
+            return redirect(route('grades.index'));
+        }
+
+        return view('grade.edit', compact('grade'));
     }
 
     /**
@@ -73,7 +87,9 @@ class GradeController extends Controller
      */
     public function update(Request $request, Grade $grade)
     {
-        //
+        $grade->name = $request->name;
+        $grade->save();
+        return redirect()->route('grades.index');
     }
 
     /**
@@ -84,6 +100,12 @@ class GradeController extends Controller
      */
     public function destroy(Grade $grade)
     {
-        //
+        if (Gate::denies('deleting-rights')) {
+            return redirect(route('grades.index'));
+        }
+
+        $grade->delete();
+
+        return redirect()->route('grades.index');
     }
 }

@@ -21,8 +21,9 @@ class StudentclassController extends Controller
      */
     public function index()
     {
+        $allClasses = Studentclass::all();
         $studentclasses = auth()->user()->studentclasses()->get();
-        return view('studentclass.index', compact('studentclasses'));
+        return view('studentclass.index', compact('studentclasses', 'allClasses'));
     }
 
     /**
@@ -74,7 +75,11 @@ class StudentclassController extends Controller
      */
     public function edit(Studentclass $studentclass)
     {
-        //
+        if (Gate::denies('editing-rights')) {
+            return redirect(route('studentclasses.index'));
+        }
+
+        return view('studentclasses.edit', compact('studentclass'));
     }
 
     /**
@@ -86,7 +91,9 @@ class StudentclassController extends Controller
      */
     public function update(Request $request, Studentclass $studentclass)
     {
-        //
+        $studentclass->name = $request->name;
+        $studentclass->save();
+        return redirect()->route('studentclasses.index');
     }
 
     /**
@@ -97,6 +104,12 @@ class StudentclassController extends Controller
      */
     public function destroy(Studentclass $studentclass)
     {
-        //
+        if (Gate::denies('deleting-rights')) {
+            return redirect(route('studentclasses.index'));
+        }
+
+        $studentclass->delete();
+
+        return redirect()->route('studentclasses.index');
     }
 }

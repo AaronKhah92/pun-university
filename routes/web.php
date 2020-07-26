@@ -29,4 +29,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 Route::resource('/courses', 'CourseController');
 
+Route::resource('/grades', 'GradeController');
+
 Route::resource('/studentclasses', 'StudentclassController');

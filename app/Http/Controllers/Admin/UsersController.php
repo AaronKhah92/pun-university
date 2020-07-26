@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
 use App\Studentclass;
+use App\Course;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,8 @@ class UsersController extends Controller
         $users = User::all();
         $students = Role::where('name', 'student')->first()->users;
         $studentclasses = Studentclass::all();
-        return view('admin.users.index', compact('users', 'students', 'studentclasses'));
+        $courses = Course::all();
+        return view('admin.users.index', compact('users', 'students', 'studentclasses', 'courses'));
     }
 
     /**
@@ -104,11 +106,13 @@ class UsersController extends Controller
         }
         $roles = Role::all();
         $studentclasses = Studentclass::all();
+        $courses = Course::all();
 
         return view('admin.users.edit')->with([
             'user' => $user,
             'roles' => $roles,
-            'studentclasses' => $studentclasses
+            'studentclasses' => $studentclasses,
+            'courses' => $courses
         ]);
     }
 
@@ -123,6 +127,7 @@ class UsersController extends Controller
     {
         $user->roles()->sync($request->roles);
         $user->studentclasses()->sync($request->studentclasses);
+        $user->courses()->sync($request->courses);
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -140,11 +145,12 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        if (Gate::denies('delete-users')) {
+        if (Gate::denies('deleting-rights')) {
             return redirect(route('admin.users.index'));
         }
         $user->roles()->detach();
         $user->studentclasses()->detach();
+        $user->courses()->detach();
         $user->delete();
 
         return redirect()->route('admin.users.index');

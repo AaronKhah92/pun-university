@@ -76,7 +76,7 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         if (Gate::denies('editing-rights')) {
-            return redirect(route('course.index'));
+            return redirect(route('courses.index'));
         }
 
         return view('course.edit', compact('course'));

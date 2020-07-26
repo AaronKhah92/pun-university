@@ -3,72 +3,81 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Alla Användare</div>
 
                 <div class="card-body">
-
-
-{{--                     <a href="/studentclasses/create" class="btn btn-dark">Skapa en klass</a>
-                    <a href="/students/create" class="btn btn-dark">Lägg till en student</a> --}}
-
                     <table class="table">
                         <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Klasser</th>
-                            <th scope="col">Actions</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Klasser</th>
+                                <th scope="col">Kurser</th>
+                                <th scope="col">Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach($users as $user)
 
                             <tr>
                                 <th scope="row">{{ $user->id }}</th>
                                 <td> {{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toarray() )}}</td>
-
-                                <td>{{ implode(', ', $user->studentclasses()->get()->pluck('name')->toarray() )}}<td/>
-
-                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button type="button" class="btn  btn-primary">Edit</button></a>
-                                <form class="d-inline" action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger ">Delete</button>
-                                </form>
+                                <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toarray() ) }}
                                 </td>
-                              </tr>
+
+                                <td>{{ implode(', ', $user->studentclasses()->get()->pluck('name')->toarray() ) }}
+                                </td>
+
+                                <td>{{ implode(', ', $user->courses()->get()->pluck('name')->toarray() ) }}
+                                </td>
+
+                                <td>
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button type="button"
+                                            class="btn  btn-primary">Redigera</button></a>
+                                </td>
+
+                                <td>
+                                    <form class="d-inline" action="{{ route('admin.users.destroy', $user) }}"
+                                        method="POST">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <button type="submit" class="btn btn-danger ">Radera</button>
+                                    </form>
+                                </td>
+                            </tr>
                             @endforeach
 
 
                         </tbody>
-                      </table>
+                    </table>
 
-                      <table class="table">
+                    <table class="table">
                         <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            @foreach ($students as $student)
+                            @foreach($students as $student)
 
                             <tr>
                                 <th scope="row">{{ $student->id }}</th>
                                 <td> {{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
-                              </tr>
+                            </tr>
                             @endforeach
 
                         </tbody>
-                      </table>
+                    </table>
+                    <a href="admin/users/create" class="btn btn-dark">Lägg till en student</a>
+                    <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
                 </div>
             </div>
         </div>

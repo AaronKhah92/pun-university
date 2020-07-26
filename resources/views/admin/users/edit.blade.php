@@ -15,12 +15,13 @@
                             <label for="email" class="col-md-2 col-form-label text-md-right">Email</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ $user->email }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -29,12 +30,13 @@
                             <label for="name" class="col-md-2 col-form-label text-md-right">Namn och efternamn</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ $user->name }}" required autofocus>
 
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -44,31 +46,47 @@
                         <div class="form-group row">
                             <label for="roles" class="col-md-2 col-form-label text-md-right">Roller</label>
                             <div class="col-md-2">
-                        @foreach ($roles as $role)
-                            <div class="form-check">
-                                <input type="checkbox" name="roles[]" value="{{ $role->id }}"
-                                @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                                <label>{{ $role->name }}</label>
-                            </div>
-                        @endforeach
+                                @foreach ($roles as $role)
+                                <div class="form-check">
+                                    <input type="checkbox" name="roles[]" value="{{ $role->id }}"
+                                        @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
+                                    <label>{{ $role->name }}</label>
+                                </div>
+                                @endforeach
                             </div>
 
-                    <div class="form-group row">
-                        <label for="studentclasses" class="col-md-6 col-form-label text-md-right">Klasser:</label>
-                        <div class="col-md-2">
-                        @foreach ($studentclasses as $studentclass)
-                        <div class="form-check">
-                            <input type="checkbox" name="studentclasses[]" value="{{ $studentclass->id }}"
-                            @if($user->studentclasses->pluck('id')->contains($studentclass->id)) checked @endif>
-                            <label>{{ $studentclass->name }}</label>
+                            <div class="form-group row">
+                                <label for="studentclasses"
+                                    class="col-md-6 col-form-label text-md-right">Klasser:</label>
+                                <div class="col-md-2">
+                                    @foreach ($studentclasses as $studentclass)
+                                    <div class="form-check">
+                                        <input type="checkbox" name="studentclasses[]" value="{{ $studentclass->id }}"
+                                            @if($user->studentclasses->pluck('id')->contains($studentclass->id)) checked
+                                        @endif>
+                                        <label>{{ $studentclass->name }}</label>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="studentclasses"
+                                    class="col-md-6 col-form-label text-md-right">Kurser:</label>
+                                <div class="col-md-2">
+                                    @foreach ($courses as $course)
+                                    <div class="form-check">
+                                        <input type="checkbox" name="courses[]" value="{{ $course->id }}"
+                                            @if($user->courses->pluck('id')->contains($course->id)) checked @endif>
+                                        <label>{{ $course->name }}</label>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
-                        @endforeach
-                        </div>
-                    </div>
-                        </div>
-                            <button type="submit" class="btn btn-primary">
-                                Uppdatera
-                            </button>
+                        <button type="submit" class="btn btn-primary">
+                            Uppdatera
+                        </button>
                     </form>
 
                 </div>

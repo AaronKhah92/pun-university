@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Mina kurser</div>
+                <div class="card-header">Mina betyg</div>
 
                 <div class="card-body">
 
@@ -18,17 +18,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($courses as $course)
+                            @foreach ($grades as $grade)
 
                             <tr>
-                                <th scope="row">{{ $course->id }}</th>
-                                <td> {{ $course->name }}
+                                <th scope="row">{{ $grade->id }}</th>
+                                <td> {{ $grade->name }}
 
-                                    <a href="{{ route('courses.edit', $course->id) }}"><button type="button"
-                                            class="btn ml-4 btn-primary">Redigera</button></a>
+                                    <a href="{{ route('grades.edit', $grade->id) }}"><button type="button"
+                                            class="btn  btn-primary">Redigera</button></a>
 
-                                    <form class="d-inline" action="{{ route('courses.destroy', $course) }}"
-                                        method="POST">
+                                    <form class="d-inline" action="{{ route('grades.destroy', $grade) }}" method="POST">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger ">Radera</button>
@@ -40,8 +39,6 @@
 
                         </tbody>
                     </table>
-                    <a href="/courses/create" class="btn btn-dark">Skapa en kurs</a>
-                    <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
                 </div>
             </div>
         </div>

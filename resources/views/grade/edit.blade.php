@@ -5,20 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Redigera klassen {{ $studentclass->name }}</div>
+                <div class="card-header">Redigera betyget {{ $grade->name }}</div>
 
                 <div class="card-body">
 
-                    <form action="{{ route('studentclasses.update', $studentclass) }}" method="POST">
+                    <form action="{{ route('grades.update', $grade) }}" method="POST">
 
 
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">Klassens nya namn</label>
+                            <label for="name" class="col-md-2 col-form-label text-md-right">Betygets nya namn</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ $studentclass->name }}" required autofocus>
+                                    name="name" value="{{ $grade->name }}" required autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">

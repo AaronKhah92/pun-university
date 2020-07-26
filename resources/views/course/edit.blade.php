@@ -17,26 +17,30 @@
                             <label for="name" class="col-md-2 col-form-label text-md-right">Kursens nya namn</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $course->name }}" required autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ $course->name }}" required autofocus>
 
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="description" class="col-md-2 col-form-label text-md-right">Kursens nya beskrivning</label>
+                            <label for="description" class="col-md-2 col-form-label text-md-right">Kursens nya
+                                beskrivning</label>
 
                             <div class="col-md-6">
-                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ $course->description }}" required autofocus>
+                                <input id="description" type="text"
+                                    class="form-control @error('description') is-invalid @enderror" name="description"
+                                    value="{{ $course->description }}" required autofocus>
 
                                 @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -44,9 +48,9 @@
                         @csrf
                         {{ method_field('PUT') }}
 
-                            <button type="submit" class="btn btn-primary">
-                                Uppdatera
-                            </button>
+                        <button type="submit" class="btn btn-primary">
+                            Uppdatera
+                        </button>
                     </form>
 
                 </div>
