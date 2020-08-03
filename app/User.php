@@ -40,11 +40,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
-    public function students()
-    {
-        return   $this->belongsToMany('App\Student');
-    }
-
     public function studentclasses()
     {
         return $this->belongsToMany('App\Studentclass');
@@ -52,7 +47,7 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->belongsToMany('App\Course');
+        return $this->hasManyThrough('App\Course', 'App\Studentclass');
     }
 
     public function grades()

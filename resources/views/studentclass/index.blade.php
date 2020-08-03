@@ -3,9 +3,17 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Mina klasser</div>
+                <div class="card-header">
+                    @can('view-only')
+                        Mina klasser
+                    @endcan
+
+                    @can('editing-rights')
+                        Alla Klasser
+                    @endcan
+                </div>
 
                 <div class="card-body">
 
@@ -24,8 +32,12 @@
                             <tr>
 
                                 <th scope="row">{{ $studentclass->id }}</th>
-                                <td> {{ $studentclass->name }}</td>
+                                <a href="/studentclasses/{studentclass}"><td> {{ $studentclass->name }}</td></a>
+                                <td>{{ implode(', ', $studentclass->courses()->get()->pluck('name')->toarray() ) }}
+                                </td>
                             </tr>
+
+
                             @endforeach
                            @endcan
 
@@ -36,18 +48,24 @@
 
                                 <th scope="row">{{ $oneClass->id }}</th>
                                 <td> {{ $oneClass->name }}
-
-
+                                </td>
+                {{--                 <td>
+                                    <a href="/studentclasses/{{ $oneClass->id }}">{{ $oneClass->name }}</a>
+                                </td> --}}
+                                <td>
+                                    <a href="/studentclasses/{{ $oneClass->id }}"><button type="button"
+                                        class="btn ml-4 btn-success">Visa</button></a>
 
                                     <a href="{{ route('studentclasses.edit', $oneClass->id) }}"><button type="button"
-                                            class="btn ml-4 btn-primary">Redigera</button></a>
+                                        class="btn ml-4 btn-primary">Redigera</button></a>
 
-                                    <form class="d-inline" action="{{ route('studentclasses.destroy', $oneClass) }}" method="POST">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" class="btn btn-danger ">Radera</button>
-                                    </form>
 
+
+                                <form class="d-inline" action="{{ route('studentclasses.destroy', $oneClass) }}" method="POST">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-danger ">Radera</button>
+                                </form>
                                 </td>
                             </tr>
                             @endforeach

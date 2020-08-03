@@ -16,7 +16,6 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
                                 <th scope="col">Klasser</th>
-                                <th scope="col">Kurser</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -32,10 +31,6 @@
 
                                 <td>{{ implode(', ', $user->studentclasses()->get()->pluck('name')->toarray() ) }}
                                 </td>
-
-                                <td>{{ implode(', ', $user->courses()->get()->pluck('name')->toarray() ) }}
-                                </td>
-
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"><button type="button"
                                             class="btn  btn-primary">Redigera</button></a>
@@ -56,7 +51,7 @@
                         </tbody>
                     </table>
 
-                    <table class="table">
+                   {{--  <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -75,7 +70,7 @@
                             @endforeach
 
                         </tbody>
-                    </table>
+                    </table> --}}
                     <a href="admin/users/create" class="btn btn-dark">Lägg till en student</a>
                     <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
                 </div>

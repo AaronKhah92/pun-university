@@ -28,8 +28,7 @@ class UsersController extends Controller
         $users = User::all();
         $students = Role::where('name', 'student')->first()->users;
         $studentclasses = Studentclass::all();
-        $courses = Course::all();
-        return view('admin.users.index', compact('users', 'students', 'studentclasses', 'courses'));
+        return view('admin.users.index', compact('users', 'students', 'studentclasses'));
     }
 
     /**
@@ -106,13 +105,11 @@ class UsersController extends Controller
         }
         $roles = Role::all();
         $studentclasses = Studentclass::all();
-        $courses = Course::all();
 
         return view('admin.users.edit')->with([
             'user' => $user,
             'roles' => $roles,
-            'studentclasses' => $studentclasses,
-            'courses' => $courses
+            'studentclasses' => $studentclasses
         ]);
     }
 
@@ -127,8 +124,6 @@ class UsersController extends Controller
     {
         $user->roles()->sync($request->roles);
         $user->studentclasses()->sync($request->studentclasses);
-        $user->courses()->sync($request->courses);
-
         $user->name = $request->name;
         $user->email = $request->email;
 
@@ -150,7 +145,6 @@ class UsersController extends Controller
         }
         $user->roles()->detach();
         $user->studentclasses()->detach();
-        $user->courses()->detach();
         $user->delete();
 
         return redirect()->route('admin.users.index');

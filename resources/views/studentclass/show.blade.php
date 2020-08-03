@@ -9,6 +9,28 @@
 
                 <div class="card-body">
 
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($courses as $course)
+
+                            <tr>
+                                <th scope="row">{{ $course->id }}</th>
+                                <td> {{ $course->name }}
+                                </td>
+                            </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
+
+                    <a href="/studentclasses" class="btn btn-dark">Tillbaka till alla klasser</a>
                 </div>
             </div>
         </div>

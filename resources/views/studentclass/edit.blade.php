@@ -28,6 +28,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="courses"
+                                class="col-md-6 col-form-label text-md-right">Kurser:</label>
+                            <div class="col-md-2">
+                                @foreach ($courses as $course)
+                                <div class="form-check">
+                                    <input type="checkbox" name="courses[]" value="{{ $course->id }}"
+                                        @if($studentclass->courses->pluck('id')->contains($course->id)) checked @endif>
+                                    <label>{{ $course->name }}</label>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
 
 
                         @csrf

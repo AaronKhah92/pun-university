@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use App\Studentclass;
 use App\User;
-use App\Student;
+use App\Grade;
+use App\Course;
 use Illuminate\Http\Request;
 
 class StudentclassController extends Controller
@@ -23,7 +25,8 @@ class StudentclassController extends Controller
     {
         $allClasses = Studentclass::all();
         $studentclasses = auth()->user()->studentclasses()->get();
-        return view('studentclass.index', compact('studentclasses', 'allClasses'));
+        $courses = Course::all();
+        return view('studentclass.index', compact('studentclasses', 'allClasses', 'courses'));
     }
 
     /**
@@ -64,7 +67,8 @@ class StudentclassController extends Controller
      */
     public function show(Studentclass $studentclass)
     {
-        return view('studentclass.show', compact('studentclass'));
+        $courses = $studentclass->courses()->get();
+        return view('studentclass.show', compact('studentclass', 'courses'));
     }
 
     /**
@@ -78,8 +82,13 @@ class StudentclassController extends Controller
         if (Gate::denies('editing-rights')) {
             return redirect(route('studentclasses.index'));
         }
-
-        return view('studentclasses.edit', compact('studentclass'));
+        $courses = Course::all();
+        $grades = Grade::all();
+        return view('studentclass.edit')->with([
+            'studentclass' => $studentclass,
+            'courses' => $courses,
+            'grades' => $grades
+        ]);
     }
 
     /**
@@ -91,6 +100,7 @@ class StudentclassController extends Controller
      */
     public function update(Request $request, Studentclass $studentclass)
     {
+        $studentclass->courses()->sync($request->courses);
         $studentclass->name = $request->name;
         $studentclass->save();
         return redirect()->route('studentclasses.index');
@@ -107,7 +117,7 @@ class StudentclassController extends Controller
         if (Gate::denies('deleting-rights')) {
             return redirect(route('studentclasses.index'));
         }
-
+        $studentclass->courses()->detach();
         $studentclass->delete();
 
         return redirect()->route('studentclasses.index');

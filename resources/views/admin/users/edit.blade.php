@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Redigera Användaren {{ $user->name }}</div>
 
@@ -70,19 +70,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="studentclasses"
-                                    class="col-md-6 col-form-label text-md-right">Kurser:</label>
-                                <div class="col-md-2">
-                                    @foreach ($courses as $course)
-                                    <div class="form-check">
-                                        <input type="checkbox" name="courses[]" value="{{ $course->id }}"
-                                            @if($user->courses->pluck('id')->contains($course->id)) checked @endif>
-                                        <label>{{ $course->name }}</label>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
+
                         </div>
                         <button type="submit" class="btn btn-primary">
                             Uppdatera
