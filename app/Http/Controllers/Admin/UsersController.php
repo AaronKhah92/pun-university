@@ -38,8 +38,8 @@ class UsersController extends Controller
      */
     public function create(User $user)
     {
-
-        return view('admin.users.create', compact('user'));
+        $studentclasses = Studentclass::all();
+        return view('admin.users.create', compact('user', 'studentclasses'));
     }
 
 

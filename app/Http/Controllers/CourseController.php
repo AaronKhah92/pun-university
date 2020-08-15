@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Grade;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'name' => 'required|min:4',
+            'name' => 'required',
             'description' => 'required'
         ]);
 
@@ -78,8 +79,8 @@ class CourseController extends Controller
         if (Gate::denies('editing-rights')) {
             return redirect(route('courses.index'));
         }
-
-        return view('course.edit', compact('course'));
+        $grades = Grade::all();
+        return view('course.edit', compact('course', 'grades'));
     }
 
     /**
@@ -93,6 +94,7 @@ class CourseController extends Controller
     {
         $course->name = $request->name;
         $course->description = $request->description;
+        $course->grades()->sync($request->grades);
 
         $course->save();
 

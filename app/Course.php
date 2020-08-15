@@ -13,13 +13,9 @@ class Course extends Model
         return $this->belongsToMany('App\Studentclass');
     }
 
-    public function grades()
-    {
-        return $this->hasManyThrough('App\Grade', 'App\User');
-    }
 
     public function users()
     {
-        return $this->hasManyThrough('App\User', 'App\Studentclass');
+        return $this->belongsToMany('App\User');
     }
 }
