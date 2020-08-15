@@ -45,6 +45,21 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="grades"
+                                class="col-md-6 col-form-label text-md-right">Betyg:</label>
+                            <div class="col-md-2">
+                                @foreach ($grades as $grade)
+                                <div class="form-check">
+                                    <input type="checkbox" name="grades[]" value="{{ $grade->id }}"
+                                        @if($course->grades->pluck('id')->contains($grade->id)) checked
+                                    @endif>
+                                    <label>{{ $grade->name }}</label>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+
                         @csrf
                         {{ method_field('PUT') }}
 

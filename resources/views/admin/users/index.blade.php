@@ -71,7 +71,7 @@
 
                         </tbody>
                     </table> --}}
-                    <a href="admin/users/create" class="btn btn-dark">Lägg till en student</a>
+                    <a href="users/create" class="btn btn-dark">Lägg till en student</a>
                     <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
                 </div>
             </div>

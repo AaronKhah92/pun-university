@@ -19,13 +19,10 @@
                     @can('manage-users')
 
                     <a href="/studentclasses" class="btn btn-dark">Hantera klasser</a>
-
-
                     <a href="/courses" class="btn btn-dark">Hantera Kurser</a>
-
-
-
                     <a href="admin/users" class="btn btn-dark">Hantera Användare</a>
+                    <a href="/grades" class="btn btn-dark">Hantera Betyg</a>
+
 
                     @endcan
 

@@ -13,7 +13,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">Namn</th>
+                                <th scope="col">Betyg</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,7 +22,11 @@
 
                             <tr>
                                 <th scope="row">{{ $course->id }}</th>
-                                <td> {{ $course->name }}
+                                <td>
+                                    {{ $course->name }}
+                                </td>
+                                <td>
+                                    VG
                                 </td>
                             </tr>
                             @endforeach
@@ -29,8 +34,13 @@
 
                         </tbody>
                     </table>
-
+                    @can('editing-rights')
                     <a href="/studentclasses" class="btn btn-dark">Tillbaka till alla klasser</a>
+                    @endcan
+
+                    @can('view-only')
+                    <a href="/studentclasses" class="btn btn-dark">Tillbaka till mina klasser</a>
+                    @endcan
                 </div>
             </div>
         </div>

@@ -39,6 +39,11 @@
 
                         </tbody>
                     </table>
+
+                    @can('editing-rights')
+                    <a href="/grades/create" class="btn btn-dark">Skapa Betyg</a>
+                    <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
+                    @endcan
                 </div>
             </div>
         </div>

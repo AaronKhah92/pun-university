@@ -33,9 +33,12 @@
 
                                 <th scope="row">{{ $studentclass->id }}</th>
                                 <a href="/studentclasses/{studentclass}"><td> {{ $studentclass->name }}</td></a>
-                                <td>{{ implode(', ', $studentclass->courses()->get()->pluck('name')->toarray() ) }}
+                                <td>
+                                    <a href="/studentclasses/{{ $studentclass->id }}"><button type="button"
+                                        class="btn ml-4 btn-success">Visa</button></a>
                                 </td>
                             </tr>
+
 
 
                             @endforeach
@@ -73,8 +76,13 @@
 
                         </tbody>
                     </table>
+                    @can('editing-rights')
                     <a href="/studentclasses/create" class="btn btn-dark">Skapa en klass</a>
                     <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
+                    @endcan
+                    @can('view-only')
+                        <a href="/home" class="btn btn-dark">Tillbaka till Mina Sidor</a>
+                    @endcan
                 </div>
             </div>
         </div>

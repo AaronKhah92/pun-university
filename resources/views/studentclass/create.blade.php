@@ -22,8 +22,10 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Skapa klass</button>
-
+                        <button type="submit" class="btn btn-dark">Skapa klass</button>
+                        @can('editing-rights')
+                        <a href="/studentclasses" class="btn btn-dark">Tillbaka till adminpanel</a>
+                        @endcan
                     </form>
                 </div>
             </div>
