@@ -22,11 +22,18 @@
 
                             <tr>
                                 <th scope="row">{{ $course->id }}</th>
-                                <td> {{ $course->name }}
 
+                                <td> {{ $course->name }}
+                                </td>
+                                <td>
+                                    <a href="/courses/{{ $course->id }}"><button type="button"
+                                        class="btn ml-4 btn-success">Visa</button></a>
+                                </td>
+                                <td>
                                     <a href="{{ route('courses.edit', $course->id) }}"><button type="button"
                                             class="btn ml-4 btn-primary">Redigera</button></a>
-
+                                </td>
+                                <td>
                                     <form class="d-inline" action="{{ route('courses.destroy', $course) }}"
                                         method="POST">
                                         @csrf

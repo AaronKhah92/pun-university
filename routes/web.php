@@ -32,3 +32,5 @@ Route::resource('/courses', 'CourseController');
 Route::resource('/grades', 'GradeController');
 
 Route::resource('/studentclasses', 'StudentclassController');
+
+Route::get('/studentclasses/{studentclass_id}/{course_id}', 'StudentclassController@setGrades');

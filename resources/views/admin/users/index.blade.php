@@ -71,6 +71,9 @@
 
                         </tbody>
                     </table> --}}
+                    @foreach($courses as $course)
+                       <h1> {{ $course->name }}</h1>
+                    @endforeach
                     <a href="users/create" class="btn btn-dark">Lägg till en student</a>
                     <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
                 </div>

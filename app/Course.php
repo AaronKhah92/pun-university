@@ -16,6 +16,6 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->hasManyThrough('App\User', 'App\Studentclass');
     }
 }

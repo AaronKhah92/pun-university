@@ -28,7 +28,9 @@ class UsersController extends Controller
         $users = User::all();
         $students = Role::where('name', 'student')->first()->users;
         $studentclasses = Studentclass::all();
-        return view('admin.users.index', compact('users', 'students', 'studentclasses'));
+        /*  $courses = Studentclass::has('courses')->get()->pluck('courses')->flatten(); */
+        $courses = Studentclass::has('courses')->get()->pluck('users')->flatten();
+        return view('admin.users.index', compact('users', 'students', 'studentclasses', 'courses'));
     }
 
     /**
@@ -105,11 +107,12 @@ class UsersController extends Controller
         }
         $roles = Role::all();
         $studentclasses = Studentclass::all();
-
+        $courses = Course::all();
         return view('admin.users.edit')->with([
             'user' => $user,
             'roles' => $roles,
-            'studentclasses' => $studentclasses
+            'studentclasses' => $studentclasses,
+            'courses' => $courses
         ]);
     }
 

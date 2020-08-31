@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Grade;
+use App\Studentclass;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -65,7 +66,10 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return view('course.show', compact('course'));
+        $users = $course->studentclasses()->get()->pluck("users")->flatten()->unique("id");
+        $courses = Studentclass::has('courses')->get()->pluck('courses')->flatten();
+        /*  dd($users); */
+        return view('course.show', compact('course', 'users'));
     }
 
     /**

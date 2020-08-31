@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     @can('view-only')
@@ -42,7 +42,7 @@
 
 
                             @endforeach
-                           @endcan
+                            @endcan
 
                             @can('editing-rights')
                             @foreach ($allClasses as $oneClass)
@@ -52,18 +52,16 @@
                                 <th scope="row">{{ $oneClass->id }}</th>
                                 <td> {{ $oneClass->name }}
                                 </td>
-                {{--                 <td>
-                                    <a href="/studentclasses/{{ $oneClass->id }}">{{ $oneClass->name }}</a>
-                                </td> --}}
                                 <td>
                                     <a href="/studentclasses/{{ $oneClass->id }}"><button type="button"
                                         class="btn ml-4 btn-success">Visa</button></a>
-
+                                </td>
+                                <td>
                                     <a href="{{ route('studentclasses.edit', $oneClass->id) }}"><button type="button"
                                         class="btn ml-4 btn-primary">Redigera</button></a>
+                                </td>
 
-
-
+                                <td>
                                 <form class="d-inline" action="{{ route('studentclasses.destroy', $oneClass) }}" method="POST">
                                     @csrf
                                     {{ method_field('DELETE') }}

@@ -14,7 +14,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Namn</th>
-                                <th scope="col">Betyg</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,9 +23,6 @@
                                 <th scope="row">{{ $course->id }}</th>
                                 <td>
                                     {{ $course->name }}
-                                </td>
-                                <td>
-                                    VG
                                 </td>
                             </tr>
                             @endforeach

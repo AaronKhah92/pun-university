@@ -9,6 +9,28 @@
 
                 <div class="card-body">
                     <p>{{ $course->description }}</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Namn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+
+                            <tr>
+                                <th scope="row">{{ $user->id }}</th>
+                                <td>
+                                    {{ $user->name }}
+                                </td>
+                            </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

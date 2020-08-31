@@ -68,7 +68,8 @@ class StudentclassController extends Controller
     public function show(Studentclass $studentclass)
     {
         $courses = $studentclass->courses()->get();
-
+        $users = $studentclass->users()->get();
+        /* dd($courses); */
         /* $courses = $studentclass->courses()->get(); */
         return view('studentclass.show', compact('studentclass', 'courses'));
     }
@@ -123,5 +124,12 @@ class StudentclassController extends Controller
         $studentclass->delete();
 
         return redirect()->route('studentclasses.index');
+    }
+
+    public function setGrades(Studentclass $studentclass_id, Course $course_id)
+    {
+        /*   dd($studentclass_id, $course_id); */
+        $students = $studentclass_id->users;
+        dd($students);
     }
 }
