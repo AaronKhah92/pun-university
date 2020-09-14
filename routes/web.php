@@ -33,4 +33,5 @@ Route::resource('/grades', 'GradeController');
 
 Route::resource('/studentclasses', 'StudentclassController');
 
-Route::get('/studentclasses/{studentclass_id}/{course_id}', 'StudentclassController@setGrades');
+Route::get('/studentclasses/{studentclass}', 'StudentclassController@show')->name('showGrades');
+Route::put('/studentclasses/grade/{studentclass}', 'StudentclassController@setGrades')->name('saveGrades');

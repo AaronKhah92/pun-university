@@ -45,7 +45,7 @@
                             @endcan
 
                             @can('editing-rights')
-                            @foreach ($allClasses as $oneClass)
+                            @foreach ($allClasses as $key => $oneClass)
 
                             <tr>
 
