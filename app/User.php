@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -48,14 +47,17 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->hasMany('App\Course');
+        return $this->belongsToMany('App\Course')->withPivot('grade_name', 'studentclass_id');
     }
 
-    public function grades()
+    public function grade($studentclass_id, $course_id)
     {
-        return $this->hasManyThrough('App\Grade', 'App\Course');
+        $userCourses = $this->courses()->wherePivot('studentclass_id', $studentclass_id)->wherePivot('course_id', $course_id)->get()->first();
+        if ($userCourses != null) {
+            return $userCourses->pivot->grade_name;
+        }
+        return null;
     }
-
 
     public function hasRole($role)
     {
