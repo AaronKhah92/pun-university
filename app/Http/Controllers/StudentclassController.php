@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Gate;
+use App\Course;
+use App\Grade;
 use App\Studentclass;
 use App\User;
-use App\Grade;
-use App\Course;
+use Gate;
 use Illuminate\Http\Request;
 
 class StudentclassController extends Controller
@@ -48,15 +48,14 @@ class StudentclassController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $data['user_id'] = auth()->user()->id;
 
         $studentclass = \App\Studentclass::create($data);
 
-
-        return  redirect('/studentclasses/' . $studentclass->id);
+        return redirect('/studentclasses/' . $studentclass->id);
     }
 
     /**
@@ -67,11 +66,15 @@ class StudentclassController extends Controller
      */
     public function show(Studentclass $studentclass)
     {
-        $courses = $studentclass->courses()->get();
-        $users = $studentclass->users()->get();
-        /* dd($courses); */
-        /* $courses = $studentclass->courses()->get(); */
-        return view('studentclass.show', compact('studentclass', 'courses'));
+
+        $loggedInStudent = auth()->user();
+        $students = $studentclass->users()->with('courses')->get();
+        $grades = Grade::all();
+        $courses = $studentclass->courses;
+        if (Gate::denies('editing-rights')) {
+            return view('studentclass.show', compact('studentclass', 'courses', 'loggedInStudent'));
+        }
+        return view('studentclass.show', compact('studentclass', 'courses', 'students', 'grades'));
     }
 
     /**
@@ -85,12 +88,12 @@ class StudentclassController extends Controller
         if (Gate::denies('editing-rights')) {
             return redirect(route('studentclasses.index'));
         }
+
         $courses = Course::all();
-        $grades = Grade::all();
         return view('studentclass.edit')->with([
             'studentclass' => $studentclass,
             'courses' => $courses,
-            'grades' => $grades
+
         ]);
     }
 
@@ -126,10 +129,25 @@ class StudentclassController extends Controller
         return redirect()->route('studentclasses.index');
     }
 
-    public function setGrades(Studentclass $studentclass_id, Course $course_id)
+    public function setGrades(Studentclass $studentclass, Request $request)
     {
-        /*   dd($studentclass_id, $course_id); */
-        $students = $studentclass_id->users;
-        dd($students);
+
+        $students = $studentclass->users;
+        $grades = $request->request->get('grades');
+        $courses = $studentclass->courses;
+        foreach ($grades as $student => $courses) {
+            $sync = [];
+            foreach ($courses as $course => $grade) {
+                $user = User::find($student);
+                $xcourse = Course::find($course);
+                $sync[$xcourse->id] = ['studentclass_id' => $studentclass->id, 'user_id' => $user->id, 'grade_name' => $grade];
+            }
+            if ($xcourse == null || $xcourse->id == null) {
+                $user->courses()->detach($sync);
+            }
+            $user->courses()->sync($sync);
+
+        }
+        return redirect()->route('showGrades', ['studentclass' => $studentclass->id]);
     }
 }

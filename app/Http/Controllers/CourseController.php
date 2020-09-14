@@ -16,7 +16,6 @@ class CourseController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -48,14 +47,12 @@ class CourseController extends Controller
     {
         $data = request()->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ]);
-
 
         $course = \App\Course::create($data);
 
-
-        return  redirect('/courses/' . $course->id);
+        return redirect('/courses/' . $course->id);
     }
 
     /**
