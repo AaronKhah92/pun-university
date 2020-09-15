@@ -23,7 +23,12 @@
         @if (Route::has('login'))
         <div class="top-right pun-menu links">
             @auth
+            @can('editing-rights')
             <a href="{{ url('/home') }}">Adminpanel</a>
+            @endcan
+            @can('view-only')
+            <a href="{{ url('/home') }}">Mina sidor</a>
+            @endcan
             @else
             <a href="{{ route('login') }}">Login</a>
 

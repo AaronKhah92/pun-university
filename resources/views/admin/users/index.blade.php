@@ -50,30 +50,6 @@
 
                         </tbody>
                     </table>
-
-                   {{--  <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($students as $student)
-
-                            <tr>
-                                <th scope="row">{{ $student->id }}</th>
-                                <td> {{ $student->name }}</td>
-                                <td>{{ $student->email }}</td>
-                            </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table> --}}
-                    @foreach($courses as $course)
-                       <h1> {{ $course->name }}</h1>
-                    @endforeach
                     <a href="users/create" class="btn btn-dark">Lägg till en student</a>
                     <a href="/home" class="btn btn-dark">Tillbaka till adminpanel</a>
                 </div>
