@@ -12,7 +12,6 @@ class StudentclassesTableSeeder extends Seeder
      */
     public function run()
     {
-        Studentclass::truncate();
 
         Studentclass::create([
             'name' => 'WCMS18'

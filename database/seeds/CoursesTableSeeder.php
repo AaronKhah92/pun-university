@@ -12,7 +12,6 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        Course::truncate();
 
         Course::create([
             'name' => 'PHP',

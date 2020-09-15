@@ -20,6 +20,10 @@ class CreateCourseUserTable extends Migration
             $table->unsignedInteger('studentclass_id');
             $table->string('grade_name');
             $table->timestamps();
+
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('studentclass_id')->references('id')->on('studentclasses')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

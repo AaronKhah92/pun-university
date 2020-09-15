@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 
-        User::truncate();
         DB::table('role_user')->truncate();
 
 
