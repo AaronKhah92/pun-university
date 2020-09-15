@@ -63,10 +63,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        $users = $course->studentclasses()->get()->pluck("users")->flatten()->unique("id");
-        $courses = Studentclass::has('courses')->get()->pluck('courses')->flatten();
-        /*  dd($users); */
-        return view('course.show', compact('course', 'users'));
+        return view('course.show', compact('course'));
     }
 
     /**
@@ -95,8 +92,6 @@ class CourseController extends Controller
     {
         $course->name = $request->name;
         $course->description = $request->description;
-        $course->grades()->sync($request->grades);
-
         $course->save();
 
         return redirect()->route('courses.index');

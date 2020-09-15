@@ -14,8 +14,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'studentclass_id'];
-    /* protected $guarded = []; */
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -53,9 +52,11 @@ class User extends Authenticatable
     public function grade($studentclass_id, $course_id)
     {
         $userCourses = $this->courses()->wherePivot('studentclass_id', $studentclass_id)->wherePivot('course_id', $course_id)->get()->first();
+
         if ($userCourses != null) {
             return $userCourses->pivot->grade_name;
         }
+
         return null;
     }
 
