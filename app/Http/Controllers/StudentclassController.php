@@ -51,8 +51,6 @@ class StudentclassController extends Controller
             'name' => 'required',
         ]);
 
-        $data['user_id'] = auth()->user()->id;
-
         $studentclass = \App\Studentclass::create($data);
 
         return redirect('/studentclasses/' . $studentclass->id);
@@ -146,7 +144,6 @@ class StudentclassController extends Controller
                 $user->courses()->detach($sync);
             }
             $user->courses()->sync($sync);
-
         }
         return redirect()->route('showGrades', ['studentclass' => $studentclass->id]);
     }
